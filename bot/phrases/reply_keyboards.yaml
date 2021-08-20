@@ -1,0 +1,21 @@
+menu:
+  add expense: Add expense
+  add income: Add income
+  my accounts: My Accounts
+  transaction history: Transaction History
+  settings: Settings
+
+verification of entered data: ['Yes', 'No']
+
+skip:
+  - Skip entering the description
+
+dates:
+  yesterday: Yesterday
+  today: Today
+  another: Another
+
+places:
+  - Tereshkova street
+  - Grill No. 1
+  - Magnit

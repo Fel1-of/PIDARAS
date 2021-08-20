@@ -1,0 +1,96 @@
+start: |
+  <strong>Good bot</strong> — бот для учёта финансов
+
+  Добавить расход: 250 такси
+  Сегодняшняя статистика: /today
+  За текущий месяц: /month
+  Последние внесённые расходы: /expenses
+  Категории трат: /categories
+
+about:
+  Твой карманный помощник по постулению в ВУЗ мечты.
+
+feedback: |-
+  telegram: @nazzyach
+  [ВКонтакте](https://vk.com/nazzyach)
+  [Инстраграм](https://www.instagram.com/nazzyach)
+
+registration:
+  start: Перед началом надо пройти быструю регистрацию
+  ask_name: Введите своё имя
+  ask_number_class: Выберите ваш класс
+
+settings:
+  introducing: Выбирайте
+
+welcome: |-
+  Приветствую, _{name}_
+  Мы поможем тебе сдать экзамены.
+  Сейчас ты выбрал _{number_class}_, но в любой момент можешь его поменять.
+
+  Давно на рынке - !
+
+adding expense:
+  amount: Please enter the amount
+  invalid amount: Please enter the amount using digits
+  category: Please choose a category
+  label: Please choose a label
+  date: Please choose date
+  place: Please choose a place
+  description: You can add a descreption or press a button on your keyboards
+  verification of entered data: |
+    Amount: <i>{amount}</i>
+    Category: <i>{category}</i>
+    Label: <i>{label}</i>
+    Date: <i>{date}</i>
+    Place: <i>{place}</i>
+    Description: <i>{description}</i>
+
+    Is this the correct <u>expense</u>?
+  verification is ok: |
+    🔴Expense saved🔴
+
+    Amount: <i>{amount}</i>
+    Category: <i>{category}</i>
+    Label: <i>{label}</i>
+    Date: <i>{date}</i>
+    Place: <i>{place}</i>
+    Description: <i>{description}</i>
+  verification is not ok: Operation aborted
+
+
+adding income:
+  amount: Please enter the amount
+  invalid amount: Please enter the amount using digits
+  category: Please choose a category
+  label: Please choose a label
+  date: Please choose date
+  place: Please choose a place
+  description: You can add a descreption or press a button on your keyboards
+  verification of entered data: |
+    Amount: <i>{amount}</i>
+    Category: <i>{category}</i>
+    Label: <i>{label}</i>
+    Date: <i>{date}</i>
+    Place: <i>{place}</i>
+    Description: <i>{description}</i>
+
+    Is this the correct <u>income</u>?
+  verification is ok: |
+    🟢Income saved🟢
+
+    Amount: <i>{amount}</i>
+    Category: <i>{category}</i>
+    Label: <i>{label}</i>
+    Date: <i>{date}</i>
+    Place: <i>{place}</i>
+    Description: <i>{description}</i>
+  verification is not ok: Operation aborted
+
+cancel handler:
+  no state: There is no operation
+  state was cleared: All right! Operation aborted
+
+error: |
+  An Error occurred: *{error}*
+  You can use command /feedback for help
