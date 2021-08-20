@@ -1,5 +1,18 @@
-menu:
-  add expense: Add expense
+menu slave:
+  Balance: Balance
+  Statistic: Statistic
+  Catalog: Catalog
+
+products:
+  Cola: Cola
+  p2: Second
+
+choice:
+  да: да
+  нет: нет
+
+menu master:
+  Add trash: Add trash
   add income: Add income
   my accounts: My Accounts
   transaction history: Transaction History
@@ -19,3 +32,8 @@ places:
   - Tereshkova street
   - Grill No. 1
   - Magnit
+
+
+after choice:
+  product: product
+  place: place

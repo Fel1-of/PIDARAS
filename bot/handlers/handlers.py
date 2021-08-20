@@ -6,7 +6,7 @@ from bot.reply_keyboards import reply_keyboard_texts
 from bot import reply_keyboards
 from bot import expenses
 from bot import exceptions
-from bot.handlers.finite_state_machine.adding_expense import register_handlers_adding_expense
+from bot.handlers.finite_state_machine.buying import register_handlers_buying
 from bot.handlers.finite_state_machine.adding_income import register_handlers_adding_income
 from bot.messages import bot_responses
 from db import db
@@ -15,7 +15,11 @@ from db import db
 def register_handlers(dp: Dispatcher):
     dp.register_message_handler(send_welcome, commands=['start'], state='*')
     dp.register_message_handler(cancel_handler, commands=['cancel'], state='*')
-    register_handlers_adding_expense(dp)
+    dp.register_message_handler(send_balance,
+                                Text(equals=reply_keyboard_texts['menu slave']['Balance'], ignore_case=True))
+    dp.register_message_handler(send_statistic,
+                                Text(equals=reply_keyboard_texts['menu slave']['Statistic'], ignore_case=True))
+    register_handlers_buying(dp)
     register_handlers_adding_income(dp)
     dp.register_message_handler(settings, commands=['settings'])
     dp.register_message_handler(settings, Text(equals=reply_keyboard_texts['menu']['settings'], ignore_case=True))
@@ -26,6 +30,14 @@ def register_handlers(dp: Dispatcher):
     dp.register_message_handler(list_expenses, commands=['expenses'])
     dp.register_message_handler(send_welcome)
     dp.register_message_handler(add_expense)
+
+
+async def send_statistic(message: types.Message, state: FSMContext):
+    await message.answer("Trash: 999", reply_markup=reply_keyboards.menu_slave)
+
+
+async def send_balance(message: types.Message, state: FSMContext):
+    await message.answer("10000000", reply_markup=reply_keyboards.menu_slave)
 
 
 async def cancel_handler(message: types.Message, state: FSMContext):
@@ -41,7 +53,10 @@ async def cancel_handler(message: types.Message, state: FSMContext):
     await message.answer(bot_responses['cancel handler']['state was cleared'], reply_markup=reply_keyboards.menu)
 
 
-async def send_welcome(message: types.Message):
+async def send_welcome(message: types.Message, data, data1):
+    print(data, data1)
+    categories = db.current_session.query(db.Category)#.filter(ClientSettings.telegram_id == telegram_user_id)
+    await message.answer(text=str(categories.all()))
     await message.answer(text=bot_responses['start'], reply_markup=reply_keyboards.menu)
 
 

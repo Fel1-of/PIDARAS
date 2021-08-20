@@ -5,8 +5,8 @@ from typing import List
 with open('bot/phrases/reply_keyboards.yaml', encoding='utf-8') as yaml_file:
     reply_keyboard_texts = yaml.safe_load(yaml_file)
 
-menu = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
-menu.add(*reply_keyboard_texts['menu'].values())
+menu_slave = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+menu_slave.add(*reply_keyboard_texts['menu slave'].values())
 
 dates = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
 dates.add(*reply_keyboard_texts['dates'].values())
@@ -14,8 +14,21 @@ dates.add(*reply_keyboard_texts['dates'].values())
 places = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
 places.add(*reply_keyboard_texts['places'])
 
+products = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+products.add(*reply_keyboard_texts['products'])
+
 description = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
 description.add(*reply_keyboard_texts['skip'])
+
+choice = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+choice.add(*reply_keyboard_texts['choice'])
+
+after_choice = types.ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+after_choice.add(*reply_keyboard_texts['after choice'])
+
+
+
+
 
 
 def get_category_reply_keyboard(telegram_id: int):
