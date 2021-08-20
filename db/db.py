@@ -17,6 +17,14 @@ Session = sessionmaker(bind=engine)
 current_session = Session()
 
 
+def get_products():
+    return 'Cola', 'Sprite'
+
+
+def get_place():
+    return '  - Tereshkova street', 'Grill No. 1', 'Magnit'
+
+
 @contextmanager
 def session_scope():
     """Provide a transactional scope around a series of operations."""
@@ -76,7 +84,7 @@ def _init_db_():
         ])
 
 
-_init_db_()
+#_init_db_()
 
 
 async def add_expense(telegram_user_id: int, amount: float, category_name: str, created_date: date,
