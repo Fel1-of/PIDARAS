@@ -22,7 +22,7 @@ def get_products():
 
 
 def get_place():
-    return '  - Tereshkova street', 'Grill No. 1', 'Magnit'
+    return 'Tereshkova street', 'Grill No. 1', 'Magnit'
 
 
 @contextmanager
