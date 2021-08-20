@@ -10,7 +10,6 @@ from bot.bot import bot, ADMIN_ID
 
 logging.basicConfig(level=logging.INFO)
 
-
 dp = Dispatcher(bot, storage=MemoryStorage())
 dp.middleware.setup(AccessMiddleware([ADMIN_ID]))
 # dp.middleware.setup(HZMiddleware())
@@ -25,4 +24,5 @@ if __name__ == '__main__':
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(set_commands(bot))
     # loop.run_until_complete(bot.send_message(ADMIN_ID, 'I am ready'))
+    print('les go')
     executor.start_polling(dp, skip_updates=True, on_startup=set_commands, on_shutdown=shutdown)

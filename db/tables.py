@@ -9,53 +9,75 @@ class Client(Base):
     __tablename__ = 'clients'
 
     telegram_id = Column(Integer, primary_key=True)
-    is_pro_account = Column(Boolean, nullable=False, default=False)
-    expenses = relationship('Expense')
-    categories = relationship('Category')
-    settings = relationship('ClientSettings', back_populates='client', uselist=False)
+    is_master = Column(Boolean, nullable=False, default=False)
+
+    taken_trashes = relationship('Taken_Trash')
+    bought_products = relationship('Bought_Product')
+    eballs = relationship('Eballs', back_populates='client')
 
     def __repr__(self):
-        return f'Client(telegram_id={self.telegram_id} is_pro_account={self.is_pro_account})'
+        return f'Client(telegram_id={self.telegram_id} is_master={self.is_master})'
+
+
+class Eballs(Base):
+    __tablename__ = 'eballs'
+
+    amount = Column(Integer, primary_key=True)
+    client_telegram_id = Column(Integer, ForeignKey(Client.telegram_id))
+    client = relationship('Client', back_populates='eballs')
 
 
 class Category(Base):
     __tablename__ = 'categories'
 
     id = Column(Integer, primary_key=True)
-    client_telegram_id = Column(Integer, ForeignKey(Client.telegram_id))
     name = Column(String(128), nullable=False, unique=True)
-    icon = Column(String(32), nullable=False)
-    expenses = relationship('Expense')
+    icon = Column(String(32), nullable=True)
+    price_koef = Column(Float, nullable=False)
+    taken_trashes = relationship('Taken_Trash')
 
     def __repr__(self):
-        return f'Expense(name={self.name})'
+        return f'Category(name={self.name})'
 
 
-class Expense(Base):
-    __tablename__ = 'expenses'
+class Product(Base):
+    __tablename__ = 'products'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128), nullable=False, unique=True)
+    price = Column(Integer, nullable=False)
+    bought_products = relationship('Bought_Product')
+
+
+class Taken_Trash(Base):
+    __tablename__ = 'taken trashes'
+
+    id = Column(Integer, primary_key=True)
+    weight = Column(Integer, nullable=False)
+    date = Column(Date, nullable=True)
+
+    category_id = Column(Integer, ForeignKey(Category.id))
+    client_telegram_id = Column(Integer, ForeignKey(Client.telegram_id))
+
+    def __repr__(self):
+        return f'Taken_Trash(weight={self.weight})'
+
+
+class Bought_Product(Base):
+    __tablename__ = 'bought products'
 
     id = Column(Integer, primary_key=True)
     client_telegram_id = Column(Integer, ForeignKey(Client.telegram_id))
-    amount = Column(Float, nullable=False)
-    category_id = Column(Integer, ForeignKey(Category.id))
-    label = Column(String(64))
-    date = Column(Date)
-    place = Column(Text)
-    description = Column(Text)
+    product_id = Column(Integer, ForeignKey(Product.id))
+    is_taken = Column(Boolean, nullable=False, default=False)
 
     def __repr__(self):
-        return f'Expense(amount={self.amount})'
-
-
-class ClientSettings(Base):
-    __tablename__ = 'clientsSettings'
-
-    telegram_id = Column(Integer, ForeignKey(Client.telegram_id), primary_key=True)
-    client = relationship('Client', back_populates='settings')
-    asking_label = Column(Boolean, nullable=False, default=True)
-    asking_place = Column(Boolean, nullable=False, default=True)
-    asking_description = Column(Boolean, nullable=False, default=True)
-
-    def __repr__(self):
-        return f'ClientSettings(asking_label={self.asking_label} ' \
+        return f'Bought Product(asking_label={self.asking_label} ' \
                f'asking_place={self.asking_place} asking_description={self.asking_description})'
+
+
+class Place(Base):
+    __tablename__ = 'places'
+
+    id = Column(Integer, primary_key=True)
+    address = Column(Text)
